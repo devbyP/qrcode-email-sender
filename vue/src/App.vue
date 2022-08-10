@@ -1,91 +1,69 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
-</script>
-
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div class="wrapper">
+    <header>
+      <h1>Get Email and QRcode!!</h1>
+      <div v-show="hasBack === true" @click="goback" class="back">&lt; go back</div>
+    </header>
+    <main>
+      <RouterView />
+    </main>
+    <footer>
+      <p>Give me money: <RouterLink to="/">Donate Now!</RouterLink></p>
+    </footer>
+  </div>
 </template>
 
+<script setup lang="ts">
+import { RouterView } from "vue-router";
+import { storeToRefs } from "pinia";
+import { useStore } from "./store/back";
+import { useRouter } from "vue-router";
+
+const store = useStore();
+const router = useRouter();
+const { hasBack } = storeToRefs(store);
+function goback() {
+  router.push("/");
+}
+</script>
+
 <style scoped>
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
 header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #303030;
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  height: 75px;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
+.back {
+  position: absolute;
+  left: 2rem;
+  transition: 0.4s;
   background-color: transparent;
+  cursor: pointer;
+}
+.back:hover {
+  background-color: hsla(160, 100%, 37%, 1);
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+footer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  background-color: #303030;
+  height: 40px;
 }
 </style>
