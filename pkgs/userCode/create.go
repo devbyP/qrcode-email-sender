@@ -11,7 +11,6 @@ type TableCreator interface {
 	createTable(ctx context.Context, db *pgx.Conn) error
 }
 
-
 func (u User) createTable(ctx context.Context, db *pgx.Conn) error {
 	s := `CREATE TABLE IF NOT EXISTS users(
 			id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -21,8 +20,10 @@ func (u User) createTable(ctx context.Context, db *pgx.Conn) error {
 			contact VARCHAR(10),
 			created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 		)`
-	_, err := db.Exec(ctx, s)
-	return fmt.Errorf("Create User Table: %v\n", err)
+	if _, err := db.Exec(ctx, s); err != nil {
+		return fmt.Errorf("Create User Table: %v\n", err)
+	}
+	return nil
 }
 
 func (t Ticket) createTable(ctx context.Context, db *pgx.Conn) error {
@@ -30,12 +31,14 @@ func (t Ticket) createTable(ctx context.Context, db *pgx.Conn) error {
 		id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
 		ticket_name VARCHAR(50) NOT NULL,
 		qrcode VARCHAR(50) NOT NULL,
-		holder uuid REFERENCE users(id) NOT NULL,
+		holder uuid REFERENCES users(id) NOT NULL,
 		bought_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 		checked_at TIMESTAMPTZ
 	)`
-	_, err := db.Exec(ctx, s)
-	return fmt.Errorf("Create Ticket Table: %v\n", err)
+	if _, err := db.Exec(ctx, s); err != nil {
+		return fmt.Errorf("Create Ticket Table: %v\n", err)
+	}
+	return nil
 }
 
 func CreateUserDBPgx(ctx context.Context, db *pgx.Conn,  ct ...TableCreator) error {
