@@ -32,4 +32,3 @@ func (uc *PgxUserStorage) InsertUser(ctx context.Context, fn, ln, e, c string) (
 	}
 	return id, nil
 }
-

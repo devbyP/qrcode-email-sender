@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .info {
+      line-height: 0%;
+    }
+    .wrapper {
+      width: 1028px;
+      margin: 0 auto;
+      border-left: 3px solid darkslategrey;
+      border-right: 3px solid darkslategrey;
+    }
+    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: hotpink;
+      border-bottom: 2px solid darkslategrey;
+      color: white;
+    }
+    main {
+      padding: 10px 20px;
+      text-align: center;
+    }
+    .upper-row {
+      display: flex;
+    }
+    .customer-info, .ticket-info {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      align-items: flex-start;
+    }
+    .customer-info {
+      border-right: 1px solid black;
+    }
+    .ticket-info {
+      padding-left: 20px;
+    }
+    .qr-image {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .about-desc {
+      text-align: left;
+    }
+    footer {
+      background-color: darkslategrey;
+      padding-left: 20px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <h1>Title</h1>
+    </header>
+    <main>
+      <h2>Email Title</h2>
+      <div class="upper-row">
+        <div class="customer-info">
+          <h3>Customer Info</h3>
+          <p class="name info">Name: {{ .LastName }} {{ .FirstName }}</p>
+          <p class="email info">Email: {{ .Email }}</p>
+          <p class="contact info">Contact: {{ .Contact }}</p>
+        </div>
+        <div class="ticket-info">
+          <h3>Ticket Info</h3>
+          <p class="ticket-id info">ID: {{ .Ticket.ID }}</p>
+          <p class="ticket-type info">Ticket Type: {{ .Ticket.Type }}</p>
+        </div>
+      </div>
+      <img class="qr-image" src="{{ .QrCode }}" alt="ticket qrcode" />
+      <div class="about">
+        <h3>About</h3>
+        <p class="about-desc">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Enim exercitationem assumenda quos dignissimos beatae!
+          Autem perferendis nostrum inventore perspiciatis iure non eius facilis ea sint sunt maiores,
+          veniam temporibus quibusdam?
+        </p>
+        <img
+          class="test-image"
+          src="https://images.unsplash.com/photo-1546414809-22c82b5e2ad4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+          alt="image of a squirrel" 
+          width="100%"
+        />
+      </div>
+    </main>
+    <footer>
+      <span>test email template. </span>
+    </footer>
+  </div>
+</body>
+</html>

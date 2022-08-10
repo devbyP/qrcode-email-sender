@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid darkslategrey;
+      background-color: khaki;
+    }
+    .wrapper {
+      width: 1028px;
+      margin: 0 auto;
+      border-left: 3px solid darkslategrey;
+      border-right: 3px solid darkslategrey;
+    }
+    main {
+      text-align: center;
+      padding: 10px 20px;
+    }
+    .customer, .item-wrapper, .customer-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      width: 100%;
+    }
+    .customer, .item-wrapper {
+      margin-bottom: 10px;
+    }
+    .customer-info {
+      padding-left: 20px;
+    }
+    .info {
+      line-height: 0%;
+    }
+    footer {
+      background-color: darkslategrey;
+      padding-left: 20px;
+      color: white;
+    }
+    ul {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      align-items: flex-start;
+      list-style: disc;
+    }
+    .item-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .general {
+      display: flex;
+      height: 20px;
+      justify-content: space-between;
+      width: 330px;
+    }
+    .ownership {
+      padding-left: 20px;
+      opacity: 0.5;
+    }
+    .ownership::before {
+      content: "";
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <h1>Order Confirmed</h1>
+    </header>
+    <main>
+      <h2>Order ID # {{ .OrderID }}</h2>
+      <div class="customer">
+        <h3>Customer Info</h3>
+        <div class="customer-info">
+          <p class="name info">Name: {{ .LastName }} {{ .FirstName }}</p>
+          <p class="email info">Email: {{ .Email }}</p>
+          <p class="contact info">Contact: {{ .Contact }}</p>
+        </div>
+      </div>
+      <div class="item-wrapper">
+        <h3>Your Items</h3>
+        <ul class="item-list">
+        <!--{{ range .Items}}-->
+          <li class="item">
+            <div class="item-info">
+              <div class="general">
+                <p class="i-name">{{ .Name }}</p>
+                <p>-</p>
+                <p class="price">{{ .Price }} Baht</p>
+              </div>
+              <div class="ownership">
+                <p class="item-owner">&rdsh; send to: {{ .Owner }} => {{ .Email }}</p>
+              </div>
+            </div>
+          </li>
+        <!--{{ end }}-->
+          <li class="total">Total - {{ .TotalPrice }} Baht</li>
+        </ul>
+      </div>
+    </main>
+    <footer>
+      <span>test email template. </span>
+    </footer>
+  </div>
+</body>
+</html>
