@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import { onMounted, reactive } from "vue";
-import { useStore } from "@/store/back";
+import { useHeaderStore } from "@/store/header";
 
 interface IUserInfo {
   firstName: string;
@@ -41,9 +41,10 @@ const userInfo = reactive<IUserInfo>({
   lastName: "",
   email: "",
 });
-const { grantBack } = useStore();
+const { grantBack, grantScan } = useHeaderStore();
 onMounted(() => {
   grantBack();
+  grantScan();
 });
 </script>
 
