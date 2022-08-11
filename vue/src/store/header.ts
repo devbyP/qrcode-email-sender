@@ -1,8 +1,9 @@
 import { defineStore } from "pinia";
 
-export const useStore = defineStore("back", {
+export const useHeaderStore = defineStore("headerState", {
   state: () => ({
     hasBack: false,
+    toScan: false,
   }),
   actions: {
     grantBack() {
@@ -10,6 +11,12 @@ export const useStore = defineStore("back", {
     },
     revokeBack() {
       this.hasBack = false;
+    },
+    grantScan() {
+      this.toScan = true;
+    },
+    revokeScan() {
+      this.toScan = false;
     },
   },
 });
